@@ -92,3 +92,18 @@ sudo tcpdump -i lo -A | grep "pass"  \\\\ -A (ASCI) -i (interface "lo")
 ```
 grep "CRON" /var/log/syslog
 ```
+### Insecure System Components
+> **-C** filters the output based on name. **-r** means recursive
+> Some of the Components might be protected by AppArmor...
+```
+ps u -C passwd
+/usr/sbin/getcap -r / 2>/dev/null        \\\\ Manual enumeration of binaries with capabilities
+sudo -l        \\\\ Lists available "sudo" commands of the current user
+cat /var/log/syslog        \\\\ Can help understanding why a command didn't work as expected
+```
+#### Exploit Kernel Vulnerabilities
+```
+cat /etc/issue        \\\\ General informations about the system
+uname -r
+arch        \\\\ Gives architecture information
+```
