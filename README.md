@@ -78,9 +78,9 @@ find / -perm -u=s -type f 2>/dev/null
 #### User trails
 > **6** and **6** are for minimum and maximum, **-t** is for pattern
 ```
-env                    \\\\ Environment variables
+env                               \\\\ Environment variables
 cat .bashrc
-crunch 6 6 -t Lab%%% > wordlist \\\\ Creating a wordlist for bruteforce
+crunch 6 6 -t Lab%%% > wordlist   \\\\ Creating a wordlist for bruteforce
 ```
 #### Service Footprints
 > run "command" every **-n** seconds
@@ -98,12 +98,23 @@ grep "CRON" /var/log/syslog
 ```
 ps u -C passwd
 /usr/sbin/getcap -r / 2>/dev/null        \\\\ Manual enumeration of binaries with capabilities
-sudo -l        \\\\ Lists available "sudo" commands of the current user
-cat /var/log/syslog        \\\\ Can help understanding why a command didn't work as expected
+sudo -l                                  \\\\ Lists available "sudo" commands of the current user
+cat /var/log/syslog                      \\\\ Can help understanding why a command didn't work as expected
 ```
 #### Exploit Kernel Vulnerabilities
 ```
 cat /etc/issue        \\\\ General informations about the system
 uname -r
-arch        \\\\ Gives architecture information
+arch                  \\\\ Gives architecture information
+```
+
+## Port Redirection and SSH Tunneling
+### Port Forwarding with Linux tools
+> **-ddd** = verbose, **fork** doesn't kill the connection after request, **-U** = User.
+```
+ip addr
+ip route
+cat /var/atlassian/application-data/confluence/confluence.cfg.xml
+socat -ddd TCP-LISTEN:2345,fork TCP:10.4.216.215:5432
+psql -h 192.168.50.63 -p 2345 -U postgres
 ```
