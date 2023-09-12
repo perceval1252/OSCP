@@ -163,5 +163,12 @@ workspace -a <name>                     \\\\ Creates a new workspace
 db_nmap                                 \\\\ Nmap scan but the results are recorded into the database and can be interacted with next commands
 hosts
 services (-p for specific port)
-show -h    
+show -h
+show auxiliary
+search type:auxiliary smb
+info                                    \\\\ Displays informations about the module
+services -p 445 --rhosts                \\\\ This is to be used while setting rhosts with the database (nmap results for example)
+sessions -l
+sessions -i <id>
+sessions -k <id>
 ```
