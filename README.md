@@ -154,6 +154,7 @@ ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:1080 %h %p' data
 sudo tcpdump -i ens192 udp port 53
 ```
 ## The Metasploit Framework
+> Commands starting with **l** while in meterpreter shell, are executed on the local machine (i.e kali machine)
 ```
 sudo msfdb init
 sudo systemctl enable postgresql
@@ -171,4 +172,6 @@ services -p 445 --rhosts                \\\\ This is to be used while setting rh
 sessions -l
 sessions -i <id>
 sessions -k <id>
+lpwd                                   
+lcd 
 ```
