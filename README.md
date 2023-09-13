@@ -175,3 +175,12 @@ sessions -k <id>
 lpwd                                   
 lcd 
 ```
+### Post Exploitation with Metasploit
+>**-H** is for hidden (so the windows doesn't show up on the target's machine)
+```
+getuid
+getsystem                              \\\\ This is used to escalate priv
+ps                                     \\\\ Shows all running processes
+migrate <process id>                   \\\\ Migrates the current process to the desired process id
+execute -H -f notepad.exe
+```
