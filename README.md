@@ -184,3 +184,18 @@ ps                                     \\\\ Shows all running processes
 migrate <process id>                   \\\\ Migrates the current process to the desired process id
 execute -H -f notepad.exe
 ```
+## Active Directory
+### Enumeration
+```
+net user /domain                      \\\\ domain specifies that we don't want all users on local, but users on domain
+net user jeffadmin /domain            \\\\ Same command, but focused on the user "jeffadmin"
+net group "Sales Department" /domain  \\\\ Group list of users
+
+> This is a script to create .ps1 ==> Enumeration
+> Beginning of the script
+$PDC = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name
+$DN = ([adsi]'').distinguishedName 
+$LDAP = "LDAP://$PDC/$DN"
+$LDAP
+> End of script
+```
