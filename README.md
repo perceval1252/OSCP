@@ -198,4 +198,27 @@ $DN = ([adsi]'').distinguishedName
 $LDAP = "LDAP://$PDC/$DN"
 $LDAP
 > End of script
+> This is a function with interactive variables
+> Beginning of the script
+function LDAPSearch {
+    param (
+        [string]$LDAPQuery
+    )
+
+    $PDC = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name
+    $DistinguishedName = ([adsi]'').distinguishedName
+
+    $DirectoryEntry = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$PDC/$DistinguishedName")
+
+    $DirectorySearcher = New-Object System.DirectoryServices.DirectorySearcher($DirectoryEntry, $LDAPQuery)
+
+    return $DirectorySearcher.FindAll()
+
+}
+> End of script
+$user = LDAPSearch -LDAPQuery "(&(objectCategory=user)(cn=michelle*))"        \\\\ Both commands are used with the script to show the results
+$user.member.properties
+Get-NetUser
+Get-NetGroup                                                                  \\\\ Powerview.ps1 commands
+Get-NetComputer
 ```
