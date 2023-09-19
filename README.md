@@ -221,4 +221,13 @@ $user.member.properties
 Get-NetUser
 Get-NetGroup                                                                  \\\\ Powerview.ps1 commands
 Get-NetComputer
+Find-LocalAdminAccess
+
+> -Verbose can be added for more verbosity
+Get-NetSession -ComputerName <name> -Verbose
+Get-Acl -Path HKLM:SYSTEM\CurrentControlSet\Services\LanmanServer\DefaultSecurity | fl
+.\PsLoggedon.exe \\files04
+Find-LocalAdminAccess
+setspn -L iis_service
+Get-NetUser -SPN | select samaccountname,serviceprincipalname
 ```
